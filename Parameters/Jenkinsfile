@@ -1,16 +1,17 @@
 pipeline {
     agent any
     parameters {
+        booleanParam(defaultValue: false, description: "clone Repo?", name: "clone_repo" )
         choice(name: 'environment', choices: ['Test', 'Dev', 'Prod'], description: 'Select the environment')
     }
     stages {
         stage('Git Clone') {
             steps {
                 script {
-                    sh 'git clone https://github.com/lloydzedds/Jenkins.git'
                     sh '''
-                        if [ $? -eq 0 ]
+                        if [ $clone_repo = true ]
                         then
+                            git clone https://github.com/lloydzedds/Jenkins.git'
                             echo "Git repo cloned successfully"
                         else
                             echo "Failed to clone Git repo"
