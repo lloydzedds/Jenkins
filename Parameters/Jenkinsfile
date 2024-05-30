@@ -2,6 +2,7 @@ pipeline {
     agent any
     parameters {
         booleanParam(defaultValue: false, description: "Clone Repo?", name: "clone_repo")
+        string(defaultValue: "https://github.com/lloydzedds/Jenkins.git", description: "Give the repo name to build", name: "repoLink")
         choice(name: 'environment', choices: ['Test', 'Dev', 'Prod'], description: 'Select the environment')
     }
     stages {
@@ -14,7 +15,7 @@ pipeline {
                     sh 'ls -al'               
                     sh '''
                         if [ "${clone_repo}" = "true" ]; then
-                            git clone https://github.com/lloydzedds/Jenkins.git
+                            git clone ${repoLink}
                             echo "Git repo cloned successfully"
                             echo "Selected environment is ${environment}"
                         else
