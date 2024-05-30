@@ -15,11 +15,12 @@ pipeline {
                         if [ "${clone_repo}" = "true" ]; then
                             git clone https://github.com/lloydzedds/Jenkins.git
                             echo "Git repo cloned successfully"
-                            echo "Selected environment is ${environment}"
+                            echo "Selected environment is ${params.environment}"
                         else
                             echo "Cloning of Git repo was skipped"
                         fi
                     '''
+                    echo "Selected environment is ${params.environment}"
                 }
             }
         }
