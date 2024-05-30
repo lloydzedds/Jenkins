@@ -8,6 +8,7 @@ pipeline {
         stage('Git Clone') {
             steps {
                 script {
+                    sh 'ls -al'                
                     sh '''
                         if [ "${clone_repo}" = "true" ]; then
                             git clone https://github.com/lloydzedds/Jenkins.git
