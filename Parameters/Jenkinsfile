@@ -1,17 +1,24 @@
 pipeline {
     agent any
     parameters {
-        choice (name: environment, choices["Test", "Dev", "Prod"])
+        choice(name: 'environment', choices: ['Test', 'Dev', 'Prod'], description: 'Select the environment')
     }
     stages {
-        stage('git clone'){
-            sh "git clone https://github.com/lloydzedds/Jenkins.git"
-            sh """
-                if [ $? -eq 0 ]
-                then
-                    echo "Git repo cloned successfully"
-                fi
-            """
+        stage('Git Clone') {
+            steps {
+                script {
+                    sh 'git clone https://github.com/lloydzedds/Jenkins.git'
+                    sh '''
+                        if [ $? -eq 0 ]
+                        then
+                            echo "Git repo cloned successfully"
+                        else
+                            echo "Failed to clone Git repo"
+                            exit 1
+                        fi
+                    '''
+                }
+            }
         }
     }
 }
