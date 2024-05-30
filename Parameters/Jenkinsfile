@@ -24,6 +24,11 @@ pipeline {
                 }
             }
         }
+        stage("list files in this directory"){
+            steps{
+                sh "ls -al"
+            }
+        }
     }
 }
 
