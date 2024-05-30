@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters {
-        booleanParam(defaultValue: false, description: "clone Repo?", name: "clone_repo" )
+        booleanParam(defaultValue: false, description: "Clone Repo?", name: "clone_repo")
         choice(name: 'environment', choices: ['Test', 'Dev', 'Prod'], description: 'Select the environment')
     }
     stages {
@@ -9,13 +9,12 @@ pipeline {
             steps {
                 script {
                     sh '''
-                        if [ $clone_repo = true ]
-                        then
-                            git clone https://github.com/lloydzedds/Jenkins.git'
+                        if [ "${clone_repo}" == "true" ]; then
+                            git clone https://github.com/lloydzedds/Jenkins.git
                             echo "Git repo cloned successfully"
+                            echo "Selected environment is ${environment}"
                         else
-                            echo "Failed to clone Git repo"
-                            exit 1
+                            echo "Cloning of Git repo was skipped"
                         fi
                     '''
                 }
@@ -23,6 +22,33 @@ pipeline {
         }
     }
 }
+
+// pipeline {
+//     agent any
+//     parameters {
+//         booleanParam(defaultValue: false, description: "clone Repo?", name: "clone_repo" )
+//         choice(name: 'environment', choices: ['Test', 'Dev', 'Prod'], description: 'Select the environment')
+//     }
+//     stages {
+//         stage('Git Clone') {
+//             steps {
+//                 script {
+//                     sh '''
+//                         if [ $clone_repo = true ]
+//                         then
+//                             git clone https://github.com/lloydzedds/Jenkins.git'
+//                             echo "Git repo cloned successfully"
+//                             echo "Selected environment is $environment"
+//                         else
+//                             echo "Failed to clone Git repo"
+//                             exit 1
+//                         fi
+//                     '''
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 // pipeline {
