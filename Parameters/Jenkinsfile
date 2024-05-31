@@ -9,9 +9,12 @@ pipeline {
         stage('Git Clone') {
             steps {
                 echo "Selected environment is ${params.environment}"
+                sleep(10)
                 script {
                     sh 'ls -al' 
+                    sleep(10)
                     sh 'rm -rf *'
+                    sleep(10)
                     sh 'ls -al'               
                     sh '''
                         if [ "${clone_repo}" = "true" ]; then
@@ -27,7 +30,13 @@ pipeline {
         }
         stage("list files in this directory"){
             steps{
+                sleep(10)
                 sh "ls -al"
+            }
+        }
+        stage("Job Completed"){
+            steps{
+                sh "echo 'This has been completed sucesfully'" 
             }
         }
     }
