@@ -34,6 +34,11 @@ pipeline {
                 sh "ls -al"
             }
         }
+        stage("Build Remote"){
+            steps{
+                build 'build-java-maven-app'
+            }
+        }
         stage("Job Completed"){
             steps{
                 sh "echo 'This has been completed sucesfully'" 
